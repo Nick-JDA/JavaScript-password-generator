@@ -21,10 +21,10 @@ generateBtn.addEventListener("click", writePassword); //when button is clicked t
   //5 prompt asks whether or not to include character type special characters
 
 //After prompts are answered the inputs are recorded and at least one character type should be selected
+  //split random gen functions into pieces ie; one for lower case, one for uppercase, one for number, one for special chars  
   //password gets generated
   //password is displayed in alert/in page
-
-//split random gen functions into pieces ie; one for lower case, one for uppercase, one for number, one for special chars
+  
 
 
 //Project Start
@@ -56,13 +56,13 @@ var smax = 24; //Special Characters
 var length = Number(prompt("Desired Length?"));                                     //Creates prompt asking for desired length of password and uses that number as the final length
 var lengthStorage = length                                                          //stores the original length chosen by user in prompt
 
-var smolCase = confirm("contain lowercase?");
+var smolCase = confirm("contain lowercase?");                                       //Prompt for adding lower case
 
-var bigCase = confirm("Contain Uppercase?");
+var bigCase = confirm("Contain Uppercase?");                                        //Prompt for adding upper case
 
-var numCon = confirm("Contain Numbers?");
+var numCon = confirm("Contain Numbers?");                                           //Prompt for adding numbers
 
-var speCon = confirm("Contain Special Characters?");
+var speCon = confirm("Contain Special Characters?");                                //Prompt for adding special characters
 
 
 
@@ -70,6 +70,13 @@ function generatePassword() {
   var password = "";
 
   length = lengthStorage                                                              //Stating that the length is what the user has inputed as their desired length
+
+  // 1st IF done
+      // if (Upper == True and (Lower == False  Special == False  Number == False)) {  
+      // Upper True: Length = Length - Lower - Special - Number False: 0 
+      // Lower True: 2 False: 0 
+      // Special True: 2 False: 0  
+      // Number True: 2 False: 0  }  
 
   if (bigCase == true && (smolCase == false || speCon == false || numCon == false)) { //This if statement states that if uppercase is chosen and any other character options aren't then it proceeds to the nested if statements.
     if (smolCase == true) {                                                           //First nested if statement states that if lowercase is chosen then the password length is decreased by 2 so the lowercase characters can be applied to the password 
@@ -87,53 +94,169 @@ function generatePassword() {
       }
     }
     if (numCon == true) {                                                             //Third nested if statement states that if numbers are chosen then the password length is decreased by 2 so the numbers can be applied to the password
-      length = length -2                                                              //and then the for loop is ran to randomly add two numbers from the array to the password.
+      length = length - 2                                                             //and then the for loop is ran to randomly add two numbers from the array to the password.
       for (var i = 0; i < 2; i ++) {
         var numbRand = Math.floor(Math.random() * nmax)
         password = password + numOpt[numbRand];
       }
-    } if (bigCase == true) {                                                          //Fourth nested if statement states that if uppercase characters are chosen then the
-      for (var i = 0; i < length; i ++) {                                             //for loop is ran to randomly add uppercase characters from the array to the password. The reason we do not decrease the length of the array by 2           
-        var uppCaseRand = Math.floor(Math.random() * umax)
+    } 
+    if (bigCase == true) {                                                          //Fourth nested if statement states that if uppercase characters are chosen then the
+      for (var i = 0; i < length; i ++) {                                           //for loop is ran to randomly add uppercase characters from the array to the password. The reason we do not decrease the length of the password by 2 is because we are            
+        var uppCaseRand = Math.floor(Math.random() * umax)                          //just filling in the remaining spots with (in this case) uppercase characters.
         password = password + uppCase[uppCaseRand];
       }
     }
   }
-      // Length: 8
-      // 1st IF
-      // if (Upper == True and (Lower == False  Special == False  Number == False)) {  
-      // Upper True: Length = Length - Lower - Special - Number False: 0 
-      // Lower True: 2 False: 0 
-      // Special True: 2 False: 0  
-      // Number True: 2 False: 0  }  
       
-      // 2nd IF 
+      // 2nd IF done
       // Upper True: 2 False: 0 
       // Lower True: Length = Length - Upper - Special - Number False: 0 
       // Special True: 2 False: 0  
-      // Number True: 2 False: 0  
+      // Number True: 2 False: 0 
+
+  if (smolCase == true && (bigCase == false || speCon == false || numCon == false)) {
+    if (bigCase == true) {
+      length = length - 2
+      for (var i = 0; i < 2; i ++) {
+        var uppCaseRand = Math.floor(Math.random() * umax)
+        password = password + uppCase[uppCaseRand];
+      }
+    }
+    if (speCon == true) {
+      length = length - 2
+      for (var i = 0; i < 2; i ++) {
+        var specRand = Math.floor(Math.random() * smax)
+        password = password + specOpt[specRand];
+      }
+    }
+    if (numCon == true) {
+      length = length - 2
+      for (var i = 0; i < 2; i ++) {
+        var numbRand = Math.floor(Math.random() * nmax)
+        password = password + numOpt[numbRand];
+      }
+    }
+    if (smolCase == true) {
+      for (var i = 0; i < length; i ++) {
+        var lowCaseRand = Math.floor(Math.random() * lmax)
+        password = password + lowCase[lowCaseRand];
+      }
+    }
+  } 
       
-      // 3rd IF 
+      // 3rd IF done
       // Upper True: 2 False: 0 
       // Lower True: 2 False: 0 
       // Special True: Length = Length - Upper- Lower - Number False: 0  
       // Number True: 2 False: 0  
-      
+  
+  if (speCon == true && (bigCase == false || smolCase == false || numCon == false)) {
+    if (bigCase == true ) {
+      length = length - 2
+      for (var i = 0; i < 2; i ++) {
+        var uppCaseRand = Math.floor(Math.random() * umax)
+        password = password + uppCase[uppCaseRand];
+      }
+    }
+    if (smolCase == true) {
+      length = length - 2
+      for (var i = 0; i < 2; i ++) {
+        var lowCaseRand = Math.floor(Math.random() * lmax)
+        password = password + lowCase[lowCaseRand];
+      }
+    }
+    if (numCon == true) {
+      length = length - 2
+      for (var i = 0; i < 2; i ++) {
+        var numbRand = Math.floor(Math.random() * nmax)
+        password = password + numOpt[numbRand];
+      }
+    }
+    if (speCon == true) {
+      for (var i = 0; i < length; i ++) {
+        var specRand = Math.floor(Math.random() * smax)
+        password = password + specOpt[specRand];
+      }
+    }
+  }   
+
       // 4th IF 
       // Upper True: 2 False: 0 
       // Lower True: 2 False: 0 
       // Special True: 2 False: 0  
       // Number True: Length = Length - Upper - Lower - Special False: 0  
       
+  if (numCon == true && (bigCase == false || speCon == false || smolCase == false)) {
+    if (bigCase == true) {
+      length = length - 2
+      for (var i = 0; i < 2; i ++) {
+        var uppCaseRand = Math.floor(Math.random() * umax)
+        password = password + uppCase[uppCaseRand];
+      }
+    }
+    if (speCon == true) {
+      length = length - 2
+      for (var i = 0; i < 2; i ++) {
+        var specRand = Math.floor(Math.random() * smax)
+        password = password + specOpt[specRand];
+      }
+    }
+    if (smolCase == true) {
+      length = length - 2
+      for (var i = 0; i < 2; i ++) {
+        var lowCaseRand = Math.floor(Math.random() * lmax)
+        password = password + lowCase[lowCaseRand];
+      }
+    }
+    if (numCon == true) {
+      for (var i = 0; i < length; i ++) {
+        var numbRand = Math.floor(Math.random() *nmax)
+        password = password + numOpt[numbRand];
+      }
+    }
+  }     
       // 5th IF   
-      // if all true   
+      // if all true all add characters to password
+
+      if (bigCase == true) {
+        length = length - 2
+        for (var i = 0; i < 2; i ++) {
+          var uppCaseRand = Math.floor(Math.random() * umax)
+          password = password + uppCase[uppCaseRand];
+        }
+      }
+      if (speCon == true) {
+        length = length - 2
+        for (var i = 0; i < 2; i ++) {
+          var specRand = Math.floor(Math.random() * smax)
+          password = password + specOpt[specRand];
+        }
+      }
+      if (smolCase == true) {
+        length = length - 2
+        for (var i = 0; i < 2; i ++) {
+          var lowCaseRand = Math.floor(Math.random() * lmax)
+          password = password + lowCase[lowCaseRand];
+        }
+      }
+      if (numCon == true) {
+        for (var i = 0; i < length; i ++) {
+          var numbRand = Math.floor(Math.random() *nmax)
+          password = password + numOpt[numbRand];
+        }
+      }
       
-      // if all false then error
+      // if all false then give error prompt
+      if (numCon == false && bigCase == false && speCon == false && smolCase == false) {
+        alert("Error no options chosen")
+      }
+      
  
  
- 
- 
- 
+  return password;
+
+}; 
+
  
  
  
@@ -189,8 +312,6 @@ function generatePassword() {
   // };
   
 
-return password;
 
-};
 
 
